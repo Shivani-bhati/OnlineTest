@@ -1,0 +1,50 @@
+<div class="pull-right">	
+<h1 class='timer' data-minutes-left =1></h1>
+</div>
+
+
+<%= ans.question.question %><br>
+<%=form_for @answer,:url => {:controller => "tests", :action => "submit"} do |f|%>
+
+ <% current_page = params[:page].to_i %>
+	<% if @questions.first.q_type == "MAQ" %>	
+		<% @questions.first.options.each do |option| %>
+			<div class="form-group">
+	   		<%= check_box_tag "answer[option_ids][]", option.id, false,  id:"answer_option_ids_#{option.id}" %>
+	    	<%= label_tag "answer[option_ids][]", option.choice,:class=>"option" %>
+			</div>
+		<% end %>  
+	<%else%>
+		<% @questions.first.options.each do |option| %>
+			<div class="form-group">
+    		<%= radio_button_tag "answer[option_ids][]", option.id, is_checked_for(current_user, option) %>
+     		<%= label_tag "answer[option_ids][]", option.choice,:class=>"option"  %>
+		 	</div>
+    <% end %>  
+<%end%>  
+
+<%=f.hidden_field :question_id %>
+
+<%fr = @questions.first.answers.map{|a| a.user_id}%>
+<!-- <html><%#if !fr.include?(current_user.id) %>
+
+   <%=f.submit :submit%></html> -->
+
+<!-- <html><%#end%></html> -->
+
+
+<br><br>
+
+<%if @test.questions.count == current_page%>
+<%= link_to "Submit your test",score_path,:class => 'btn  btn-primary'%>
+<%end%>
+<%end%>
+
+
+<script type="text/javascript">
+$('.timer').startTimer({
+onComplete: function(element){
+$(".next_page")[0].click();
+}
+})
+</script>

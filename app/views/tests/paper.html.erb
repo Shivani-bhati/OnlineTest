@@ -1,0 +1,20 @@
+<div class="pull-right">
+<h1 class='timer' data-minutes-left= <%= @test.duration.strftime("%M").to_i %>></h1>
+</div>
+
+<div class= question>
+	<%= render 'question', ans: @answer%>
+</div>	
+
+<%= paginate @questions,class: "questions_pagination"%>
+
+<script type="text/javascript">
+$('.timer').startTimer({
+  onComplete: function(element){
+    $(".translation_missing").click();
+  }
+
+})
+
+</script>
+

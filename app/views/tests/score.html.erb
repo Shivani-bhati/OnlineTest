@@ -1,0 +1,21 @@
+<dd><strong><h2><%=current_user.email %></h2></strong></dd><br>
+<% score = 0 %>
+<% @score.each do |s| %>
+<% if s.score == 1%>
+<% score = score + 1 %>
+<% end %>
+<% end %>
+<%@result.f_score=score%>
+<%@result.user_id=current_user.id%>
+<%@result.test_id=@test.id%>
+<%@result.save%>
+<h4>Your Score=<%=score%></h4>
+<% if score < 2 %>
+	<h4><b>Sorry!!!</b>You are not qualified for the next round</h4>
+<% else %>
+    <h4><b>Congratulations!!!!!</b></h4>
+    <h5>You are qualified for the next round</h5>
+<%end%>
+
+
+

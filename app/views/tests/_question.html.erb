@@ -1,0 +1,46 @@
+<div class="page-header">
+<h1><%=@test.name%></h1>
+
+<script type="text/javascript" >
+    function preventBack(){window.history.forward();}
+    setTimeout("preventBack()", 0);
+    window.onunload=function(){null};
+</script>
+
+</div>
+<%= ans.question.question %><br>
+<%=form_for @answer,:url => {:controller => "tests", :action => "submit"} do |f|%>
+<% current_page = params[:page].to_i %>
+<% if @questions.first.q_type == "MAQ" %>
+	<% @questions.first.options.each do |option| %>
+		<div class="form-group">
+    	<%= check_box_tag "answer[option_ids][]", option.id, is_check(@answers, option.id),id:"answer_option_ids_#{option.id}"  %>
+    	<%= label_tag "answer[option_ids][]", option.choice,:class=>"option" %>
+    	</div>
+<% end %>  
+<% else %>
+	<% @questions.first.options.each do |option| %>
+		<div class="form-group">
+		<%= radio_button_tag "answer[option_ids][]", option.id, is_check(@answers, option.id) %>
+		<%= label_tag "answer[option_ids][]", option.choice,:class=>"option"%>
+	</div>
+	<% end %>  
+<% end %>  
+<%=f.hidden_field :question_id %>
+
+<%unless @answers.present?%>
+       <%= f.submit "submit", :class => 'submit btn btn-primary'%>
+   <%else%>
+       <%= f.submit "re-submit", :class => 'submit btn btn-primary'%>
+   <%end%>
+<%if @test.questions.count == current_page%>
+<button><%= link_to t('.Submit_Test', :default => t("helpers.links.Submit_Test")),score_path(@test.id),:class => 'button span'%></button>
+<%end%>
+<%end%>
+<%= link_to t('.Submit_Test', :default => t("helpers.links.Submit_Test")),score_path(@test.id),:class => 'button span hide'%>
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+<h2>Results</h2>
+<hr>
+<table class="table table-striped">
+	<thead>
+	<tr>
+	<th><b>Email_id</b></th>
+	<th><b>TestName</b></th>
+	<th><b>TestType</b></th>
+	<th><b>Total_score</b></th>
+	</tr>
+	</thead>
+    <tbody>
+    <% @result.each do|res| %>
+		<tr>
+		<td><%=res.user.email%></td>
+		<td><%=res.test.name%></td>
+		<td><%=res.test.test_type%></td>
+		<td><%=res.f_score%></td>
+		</tr>
+    <%end%>
+    </tbody>
+</table>
+<%= link_to 'Back',users_path, :class => 'btn btn-primary btn-xs' %>

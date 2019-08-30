@@ -1,0 +1,19 @@
+
+<h2>Result</h2>
+<hr>
+<table class="table table-striped">	
+  <thead>
+	<th><b>Email_id</b></th>
+	<th><b>TestName</b></th>
+	<th><b>Total_score</b></th>
+  </thead>
+  <tbody>
+	<tr>
+	<% @res = @result.select{|a|  a.test_id == @test.id}.first %>
+	<td><%=@res.user.email%><br></td>
+	<td><%=@res.test.name%></td>
+	<td><%=@res.f_score%></td>
+	</tr>
+	</tbody>
+</table>
+<%=link_to "Back",tests_path,:class => 'btn btn-default btn-sm-7'%>

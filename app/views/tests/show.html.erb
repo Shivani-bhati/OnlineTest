@@ -1,0 +1,28 @@
+<%- model_class = Test-%>
+<head>
+<script type="text/javascript" >
+   function preventBack(){window.history.forward();}
+    setTimeout("preventBack()", 0);
+    window.onunload=function(){null};
+</script>
+  <title>Instructions</title>
+</head>
+<div class="page-header">
+    <% if !current_user.admin %>
+		<h1 style="color:green;"><u><center>Instruction:</center></u></h1>
+	<% end %>
+</div>
+
+
+<% if !current_user.admin %>
+		
+		<h4><b>Total number of questions:</b><td><%= @test.no_of_questions %></td></h4>
+		<h4><b>Time alloted:</b><%=@test.duration.strftime("%H:%M:%S")%></h4>
+		<h4><b>Each question carry 1 mark, no negative marking.</b></h4>
+		<h4 style="color:red;"><b>DO NOT refresh the page.</b></h4>
+		<h4 style="color:blue;"><b>All the best :-).</b></h4><br>
+
+<% end %>
+
+
+<%= link_to 'StartTest',paper_path(@test), :class => 'btn btn-default'%>
